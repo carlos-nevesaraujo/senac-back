@@ -57,6 +57,12 @@ projeto-senac-back/
 ```bash
 npm install
 ```
+ou 
+
+```bash
+powershell -ExecutionPolicy Bypass -Command "npm install"
+```
+
 
 2. Crie o arquivo `.env` usando `.env.exemple` como base.
 
@@ -65,6 +71,12 @@ npm install
 ```bash
 npm run dev
 ```
+ou 
+
+```bash
+powershell -ExecutionPolicy Bypass -Command "npm run dev"
+```
+
 
 4. Acesse:
 
@@ -155,3 +167,4 @@ Authorization: Bearer SEU_TOKEN
 ## Licenca
 
 Uso educacional.
+
