@@ -8,6 +8,8 @@ build/
 .vscode/
 coverage/
 
+src/docs/swagger-output.json
+
 *._*
 .github/
 .agents/

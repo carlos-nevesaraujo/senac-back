@@ -3,7 +3,7 @@ import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
 
-import { setupSwagger } from './src/docs/swagger.js';
+import { generateSwaggerDocs, setupSwagger } from './src/docs/swagger.js';
 import usuariosRoutes from './src/routes/usuariosRoutes.js';
 import tarefasRoutes from './src/routes/tarefasRoutes.js';
 
@@ -17,7 +17,6 @@ app.use(express.json());
 // Cada recurso fica em um router separado para manter organizacao.
 app.use('/usuarios', usuariosRoutes);
 app.use('/tarefas', tarefasRoutes);
-setupSwagger(app);
 
 app.get('/', (req, res) => {
   res.json({
@@ -38,6 +37,13 @@ app.use((err, req, res, next) => {
   res.status(500).json({ mensagem: 'Erro interno do servidor.' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
-});
+async function start() {
+  await generateSwaggerDocs();
+  setupSwagger(app);
+
+  app.listen(PORT, () => {
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
+  });
+}
+
+start();

@@ -16,7 +16,7 @@ frontend -> fetch -> routes -> controllers -> db.js -> PostgreSQL/Supabase
 - JWT com `jsonwebtoken`
 - Hash de senha com `bcrypt`
 - Upload de imagem com `multer` + Supabase Storage (S3)
-- Documentacao da API com Swagger (`swagger-ui-express` + `swagger-jsdoc`)
+- Documentacao da API com Swagger (`swagger-ui-express` + `swagger-autogen`)
 
 ## Estrutura do projeto
 
@@ -36,7 +36,14 @@ projeto-senac-back/
     │   ├── autenticacao.js
     │   └── uploadImagem.js
     ├── docs/
-    │   └── swagger.js
+    │   ├── swagger.js
+    │   └── explicacoes/
+    │       ├── README.md
+    │       ├── api.md
+    │       ├── metodos-http.md
+    │       ├── status-codes.md
+    │       ├── variaveis.md
+    │       └── metodos.md
     └── data/
         ├── db.js
         ├── create-tables.sql
@@ -46,8 +53,9 @@ projeto-senac-back/
 ## O que cada pasta faz
 
 - `routes`: mapeia endpoint para funcao do controller.
-- `controllers`: valida entrada, executa SQL e devolve resposta HTTP.
+- `controllers`: recebe a requisicao, aplica as regras principais e devolve resposta HTTP.
 - `middlewares`: regras reutilizaveis (JWT e upload).
+- `docs`: configuracao do Swagger e material de apoio didatico.
 - `data/db.js`: conexao com o banco e criacao das tabelas base.
 
 ## Como executar
@@ -87,8 +95,8 @@ powershell -ExecutionPolicy Bypass -Command "npm run dev"
 - Interface: `http://localhost:3000/docs`
 - JSON OpenAPI: `http://localhost:3000/docs.json`
 
-A documentacao e gerada automaticamente a partir dos comentarios `@openapi` nos arquivos de rotas.
-Quando criar ou alterar endpoint, atualize o bloco `@openapi` da rota correspondente.
+A documentacao e gerada automaticamente com `swagger-autogen` a partir dos arquivos de rotas.
+Quando criar ou alterar endpoint, ajuste a rota correspondente em `src/routes/` e reinicie a aplicacao.
 
 No Swagger, clique em **Authorize** e informe:
 
@@ -147,6 +155,11 @@ Authorization: Bearer SEU_TOKEN
 - Campo esperado: `foto`.
 - Tamanho maximo: 5MB.
 - Somente arquivos de imagem.
+
+## Explicacoes basicas
+
+O material com conceitos iniciais de programacao fica em `src/docs/explicacoes/`.
+Os arquivos cobrem variaveis, metodos, API, tipos de requisicao HTTP e status code.
 
 ## Como criar um novo CRUD (passo a passo)
 

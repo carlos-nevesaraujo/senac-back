@@ -52,7 +52,7 @@ export async function buscarPorId(req, res) {
 export async function criar(req, res) {
   const { titulo, descricao, status } = req.body;
 
-  if (!titulo || typeof titulo !== 'string' || !titulo.trim()) {
+  if (!titulo) {
     return res.status(400).json({ mensagem: 'Informe um título válido.' });
   }
 

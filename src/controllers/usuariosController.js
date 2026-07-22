@@ -10,10 +10,6 @@ function ehErroEmailDuplicado(erro) {
   return erro?.code === '23505' || erro?.message?.includes('UNIQUE constraint failed');
 }
 
-function senhaInvalida(senha) {
-  return typeof senha !== 'string' || senha.length < 6;
-}
-
 export async function listar(req, res) {
   try {
     const db = await getDatabase();
@@ -51,12 +47,6 @@ export async function criar(req, res) {
 
   if (!nome || !email || !telefone || !senha) {
     return res.status(400).json({ mensagem: 'Campos obrigatórios ausentes.' });
-  }
-
-  if (senhaInvalida(senha)) {
-    return res.status(400).json({
-      mensagem: 'A senha deve ter pelo menos 6 caracteres.'
-    });
   }
 
   try {
@@ -122,11 +112,6 @@ export async function atualizar(req, res) {
     let novaSenha = atual.senha;
 
     if (senha) {
-      if (senhaInvalida(senha)) {
-        return res.status(400).json({
-          mensagem: 'A senha deve ter pelo menos 6 caracteres.'
-        });
-      }
       novaSenha = await bcrypt.hash(senha, SALT_ROUNDS);
     }
 

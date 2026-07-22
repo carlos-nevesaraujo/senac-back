@@ -1,14 +1,20 @@
 import jwt from 'jsonwebtoken';
 
 export function autenticarJWT(req, res, next) {
-  // Formato esperado: Authorization: Bearer <token>
-  const headerAuth = req.headers.authorization;
+  const headerAuth = String(req.headers.authorization || '').trim();
 
-  if (!headerAuth || !headerAuth.startsWith('Bearer ')) {
+  if (!headerAuth) {
     return res.status(401).json({ mensagem: 'Token não enviado.' });
   }
 
-  const token = headerAuth.split(' ')[1];
+  // Aceita tanto "Bearer <token>" quanto apenas "<token>".
+  const token = headerAuth.toLowerCase().startsWith('bearer ')
+    ? headerAuth.slice(7).trim()
+    : headerAuth;
+
+  if (!token) {
+    return res.status(401).json({ mensagem: 'Token não enviado.' });
+  }
 
   try {
     // Se token for valido, payload volta com os dados gravados no login.
