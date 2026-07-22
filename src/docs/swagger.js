@@ -18,7 +18,7 @@ const doc = {
     version: '1.0.0'
   },
   host: `${process.env.API_URL || `localhost:${process.env.PORT || 4000}`}`,
-  schemes: ['http'],
+  schemes: ['https','http'],
   consumes: ['application/json', 'multipart/form-data'],
   produces: ['application/json'],
   securityDefinitions: {

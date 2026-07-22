@@ -177,6 +177,7 @@ Os arquivos cobrem variaveis, metodos, API, tipos de requisicao HTTP e status co
 - Use SQL direto no controller para facilitar o aprendizado.
 - Quando der erro, confira primeiro `.env`, token JWT e nomes das colunas.
 
+
 ## Licenca
 
 Uso educacional.

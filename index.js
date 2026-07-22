@@ -8,7 +8,7 @@ import usuariosRoutes from './src/routes/usuariosRoutes.js';
 import tarefasRoutes from './src/routes/tarefasRoutes.js';
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
 // Middlewares globais usados em quase toda API.
 app.use(cors());

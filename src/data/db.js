@@ -27,6 +27,15 @@ function getConnectionErrorMessage(error, connectionString) {
       return `Nao foi possivel resolver o host do banco (${host}). Verifique host e internet.`;
     }
 
+    if (error?.code === 'ENETUNREACH' || error?.code === 'EHOSTUNREACH') {
+      const pareceIpv6 = host.includes(':') || /\b[a-f0-9:]{4,}\b/i.test(rawMessage);
+      if (pareceIpv6) {
+        return 'Rede IPv6 indisponivel neste ambiente. Use a connection string do Supabase Pooler (IPv4) no .env.';
+      }
+
+      return `A rede nao consegue alcancar ${host}:${port}. Verifique conectividade e regras de saida da rede.`;
+    }
+
     if (error?.code === 'ECONNREFUSED' || error?.code === 'ETIMEDOUT') {
       return `Nao foi possivel conectar em ${host}:${port}. Verifique porta, firewall e disponibilidade do banco.`;
     }
