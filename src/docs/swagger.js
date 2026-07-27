@@ -74,7 +74,10 @@ export async function generateSwaggerDocs() {
 export function setupSwagger(app) {
   const swaggerDocument = JSON.parse(readFileSync(outputFile, 'utf8'));
 
-  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  app.get('/docs', (req, res) => {
+    res.sendFile(path.join(__dirname, 'swagger.html'));
+  });
+  // app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   app.get('/docs.json', (req, res) => {
     res.json(swaggerDocument);
   });

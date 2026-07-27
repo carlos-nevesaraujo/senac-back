@@ -19,17 +19,7 @@ app.use('/usuarios', usuariosRoutes);
 app.use('/tarefas', tarefasRoutes);
 
 app.get('/', (req, res) => {
-  res.json({
-    status: 'ok',
-    recursos: [
-      'POST /usuarios',
-      'POST /usuarios/login',
-      'GET  /usuarios/perfil',
-      '/usuarios',
-      '/tarefas',
-      '/docs'
-    ]
-  });
+    res.redirect(301, '/docs');
 });
 
 app.use((err, req, res, next) => {
