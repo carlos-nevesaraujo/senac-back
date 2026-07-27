@@ -38,7 +38,7 @@ app.use((err, req, res, next) => {
 });
 
 async function start() {
-  await generateSwaggerDocs();
+  // await generateSwaggerDocs();
   setupSwagger(app);
 
   app.listen(PORT, () => {
